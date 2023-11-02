@@ -2,7 +2,7 @@ import numpy as np
 import scipy.linalg
 
 
-def LU_decomposition(A):
+def LU_decomposition(A, B):
     n = len(A[0])
     L = np.zeros([n, n])
     U = np.zeros([n, n])
@@ -25,9 +25,8 @@ def LU_decomposition(A):
                     temp = temp + L[j][k] * U[k][i]
                 L[j][i] = (A[j][i] - temp) / U[i][i]
     print("L = ", L)
-    print()
     print("U = ", U)
-    gauss(U, gauss(L, BB))
+    gauss(U, gauss(L, B))
 
 
 def gauss(AA, BB):
@@ -70,12 +69,18 @@ def gauss(AA, BB):
 
 
 if __name__ == '__main__':
-    B = np.array([[-11, 1, 6, 3],
-                  [5, 14, 3, 5],
-                  [1, -1, 9, 4],
-                  [-4, 4, 2, 12]])
-    BB = [0, -8, 1, 1]
-    LU_decomposition(B)
+    B, BB = [], []
+    size = int(input("Matrix size: "))
+    print("Enter rows: ")
+    for j in range(size):
+        row = [int(value) for value in input().split()]
+        B.append(row[:size])
+    print("Enter vector: ")
+    row = [int(value) for value in input().split()]
+    BB.append(row[:size])
+    B = np.array(B)
+    BB = np.array(BB)
+    LU_decomposition(B, BB)
 
     P, L, U = scipy.linalg.lu(B)
     print("L = ", L)
