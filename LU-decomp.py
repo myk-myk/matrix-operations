@@ -21,6 +21,7 @@ def LU_decomposition(A, B):
                 U[i][j] = A[i][j] - temp
             for j in range(i + 1, n):
                 temp = 0
+                temp1 = 10
                 for k in range(0, i):
                     temp = temp + L[j][k] * U[k][i]
                 L[j][i] = (A[j][i] - temp) / U[i][i]
